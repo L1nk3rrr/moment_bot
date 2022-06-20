@@ -6,12 +6,15 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
 
 from tg_bot.config import load_config
-from tg_bot.handlers.admin import register_admin
-# from tg_bot.handlers.echo import register_echo
+#from tg_bot.handlers.admin import register_admin
+from tg_bot.handlers.general_handlers import register_general
 from tg_bot.handlers.start import register_start
-from tg_bot.handlers.day_analyze_handlers import register_day_analyze
+from tg_bot.handlers.share_emotions_handler import register_share_emotions
+from tg_bot.handlers.day_analyze_handler import register_day_analyze
+from tg_bot.handlers.last_handlers import register_last
 from tg_bot.filters import AdminFilter
 logger = logging.getLogger(__name__)
+
 
 def register_all_middlewares(dp):
     # dp.setup_middleware(...)
@@ -25,9 +28,10 @@ def register_all_filters(dp):
 def register_all_handlers(dp):
     # register_admin(dp)
     register_start(dp)
+    register_general(dp)
+    register_share_emotions(dp)
     register_day_analyze(dp)
-    # register_echo(dp)
-
+    register_last(dp)
 
 async def main():
     logging.basicConfig(

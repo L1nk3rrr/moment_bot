@@ -26,14 +26,13 @@ async def general_menu(message: types.Message, state: FSMContext):
     if message.text != "Ні":
         await message.answer("Як тобі допомогти?", reply_markup=menu)
     else:
-        await message.answer("Дякую, що написав_ла.\nНадіюсь тобі стало трішки ліпше, адже це моя місія!.\n"
+        await message.answer("Дякую, що написав_ла.\nНадіюсь тобі стало трішки ліпше, адже це моя місія!\n"
                              "Можеш звертатись до мене у будь-який час~~~")
     if await state.get_state():
         await state.finish()
 
 
 def register_start(dp: Dispatcher):
-    dp.register_message_handler(bot_start, Command("start"))
+    dp.register_message_handler(bot_start, Command("start"), state="*")
     dp.register_message_handler(hello_user, state=Form.register)
-    dp.register_message_handler(general_menu, state=Form.general)
     dp.register_message_handler(general_menu, state=Form.general)
