@@ -3,10 +3,10 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 menu = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Поділитись емоціями")
+            KeyboardButton(text="Відкрити своє серце")
         ],
         [
-            KeyboardButton(text="Аналіз дня")
+            KeyboardButton(text="Розказати про мій день")
         ]
     ],
     resize_keyboard=True

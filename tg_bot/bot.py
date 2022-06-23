@@ -1,18 +1,14 @@
 import asyncio
 import logging
 
-from aiogram import Bot, Dispatcher
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.contrib.fsm_storage.redis import RedisStorage2
-
-from tg_bot.config import load_config
 #from tg_bot.handlers.admin import register_admin
-from tg_bot.handlers.general_handlers import register_general
-from tg_bot.handlers.start import register_start
-from tg_bot.handlers.share_emotions_handler import register_share_emotions
-from tg_bot.handlers.day_analyze_handler import register_day_analyze
-from tg_bot.handlers.last_handlers import register_last
-from tg_bot.filters import AdminFilter
+from create_bot import dp, bot
+from handlers.general_handlers import register_general
+from handlers.start import register_start
+from handlers.share_emotions_handler import register_share_emotions
+from handlers.day_analyze_handler import register_day_analyze
+from handlers.last_handlers import register_last
+from filters import AdminFilter
 logger = logging.getLogger(__name__)
 
 
@@ -38,12 +34,6 @@ async def main():
         level=logging.INFO,
         format=u"%(filename)s:%(lineno)d #%(levelname)-8s [%(asctime)s] - %(name)s - %(message)s",
     )
-    config = load_config(".env")
-
-    bot = Bot(token=config.tg_bot.token, parse_mode="HTML")
-    storage = RedisStorage2() if config.tg_bot.use_redis else MemoryStorage()
-    dp = Dispatcher(bot, storage=storage)
-    bot["config"] = config
 
     register_all_middlewares(dp)
     register_all_filters(dp)

@@ -22,7 +22,7 @@ example = ReplyKeyboardMarkup(
 circle = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Отримати коло емоцій"),
+            KeyboardButton(text="А якими ще емоцями можна описати стани?"),
         ],
     ],
     resize_keyboard=True,

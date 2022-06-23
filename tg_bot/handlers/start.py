@@ -1,3 +1,4 @@
+from create_bot import bot
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command
@@ -10,23 +11,18 @@ from tg_bot.filters.Form import Form
 
 
 async def bot_start(message: types.Message, state: FSMContext):
-    await message.answer("Привіт, я бот Moment!\n"
-                         "Хочу допомогти тобі з твоїми емоціями і стресом.\n", reply_markup=ReplyKeyboardRemove())
-    await Form.register.set()
-    await message.answer("Перед початком, вкажи будь ласка як до тебе звертатись.")
-
-
-async def hello_user(message: types.Message, state: FSMContext):
-    await message.answer(f"Приємно познайомитись, {message.text}!\n"
-                         "Готова_ий розпочати?")
+    await message.answer("Привіт! Мене звати Мо і я буду допомагати тобі з твоїми емоційми і розумінням себе",
+                         reply_markup=ReplyKeyboardRemove())
     await Form.general.set()
+    await message.answer("Як до тебе звертатись?")
 
 
 async def general_menu(message: types.Message, state: FSMContext):
+    user_id = message.from_user.id
     if message.text != "Ні":
-        await message.answer("Як тобі допомогти?", reply_markup=menu)
+        await bot.send_message(user_id, "Як тобі допомогти?", reply_markup=menu)
     else:
-        await message.answer("Дякую, що написав_ла.\nНадіюсь тобі стало трішки ліпше, адже це моя місія!\n"
+        await bot.send_message(user_id, "Дякую, що написав_ла.\nНадіюсь тобі стало трішки ліпше, адже це моя місія!\n"
                              "Можеш звертатись до мене у будь-який час~~~")
     if await state.get_state():
         await state.finish()
@@ -34,5 +30,4 @@ async def general_menu(message: types.Message, state: FSMContext):
 
 def register_start(dp: Dispatcher):
     dp.register_message_handler(bot_start, Command("start"), state="*")
-    dp.register_message_handler(hello_user, state=Form.register)
     dp.register_message_handler(general_menu, state=Form.general)
