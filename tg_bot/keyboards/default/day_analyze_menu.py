@@ -1,14 +1,5 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-menu = ReplyKeyboardMarkup(
-    keyboard=[
-        [
-            KeyboardButton(text="Написати текстово"),
-            KeyboardButton(text="Записати голосове повідомлення")
-        ],
-    ],
-    resize_keyboard=True,
-)
 
 example = ReplyKeyboardMarkup(
     keyboard=[
@@ -17,13 +8,15 @@ example = ReplyKeyboardMarkup(
         ],
     ],
     resize_keyboard=True,
+    one_time_keyboard=True,
 )
 
 circle = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="А якими ще емоцями можна описати стани?"),
+            KeyboardButton(text="Отримати коло емоцій на допомогу"),
         ],
     ],
     resize_keyboard=True,
+    one_time_keyboard=True,
 )

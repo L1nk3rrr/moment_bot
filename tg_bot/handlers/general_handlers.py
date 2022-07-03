@@ -15,5 +15,6 @@ async def cancel_handler(message: types.Message, state: FSMContext):
 
 
 def register_general(dp: Dispatcher):
-    dp.register_message_handler(cancel_handler, state="*", commands="Відміна")
+    dp.register_message_handler(cancel_handler, state="*", commands="/cancel")
     dp.register_message_handler(cancel_handler, Text(equals="Відміна", ignore_case=True), state="*")
+    dp.register_message_handler(cancel_handler, Text(equals="Ні", ignore_case=True), state="*")

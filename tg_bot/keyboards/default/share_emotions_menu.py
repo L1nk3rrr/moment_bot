@@ -10,11 +10,10 @@ menu = ReplyKeyboardMarkup(
     resize_keyboard=True,
 )
 
-yes_no_menu = ReplyKeyboardMarkup(
+thanks = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Так"),
-            KeyboardButton(text="Ні")
+            KeyboardButton(text="Дякую, Мо!"),
         ],
     ],
     resize_keyboard=True,

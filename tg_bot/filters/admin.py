@@ -1,19 +1,20 @@
 from aiogram.dispatcher.filters import BoundFilter
 
-from tg_bot.config import Config
+import json, string
+
+bad_words = {"сука", "блядь", "вбити", "згвалтувати", "тварь" ,"сука", "блять", "скривдити", "образити"}
 
 
 class AdminFilter(BoundFilter):
-    key = "is_admin"
+    key = "is_bad"
 
-    def __init__(self, is_admin=None):
-        self.is_admin = is_admin
+    def __init__(self, is_bad=None):
+        self.is_bad = is_bad
 
     async def check(self, obj):
-        if self.is_admin is None:
-            return
-        if not self.is_admin:
+        if {i.lower().translate(str.maketrans("", "", string.punctuation)) for i in obj.text.split(" ")} \
+                .intersection(bad_words) != set():
+            return True
+        else:
             return False
-        config: Config = obj.bot.get("config")
-        user_id = obj.from_user.id
-        return user_id in config.tg_bot.admin_ids
+

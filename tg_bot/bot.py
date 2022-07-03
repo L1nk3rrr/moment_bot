@@ -3,12 +3,15 @@ import logging
 
 #from tg_bot.handlers.admin import register_admin
 from create_bot import dp, bot
+from services.sqlite_db import sql_start
+
 from handlers.general_handlers import register_general
 from handlers.start import register_start
 from handlers.share_emotions_handler import register_share_emotions
 from handlers.day_analyze_handler import register_day_analyze
 from handlers.last_handlers import register_last
 from filters import AdminFilter
+from filters.auth import Register
 logger = logging.getLogger(__name__)
 
 
@@ -19,6 +22,7 @@ def register_all_middlewares(dp):
 
 def register_all_filters(dp):
     dp.filters_factory.bind(AdminFilter)
+    dp.filters_factory.bind(Register)
 
 
 def register_all_handlers(dp):
@@ -38,6 +42,8 @@ async def main():
     register_all_middlewares(dp)
     register_all_filters(dp)
     register_all_handlers(dp)
+    if sql_start():
+        logger.info("Database is ok")
 
     try:
         await dp.start_polling()
@@ -46,8 +52,11 @@ async def main():
         await dp.storage.wait_closed()
         await bot.session.close()
 
+
+
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
         logger.error("Bot Stopped")
+
