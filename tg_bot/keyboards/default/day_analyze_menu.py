@@ -8,7 +8,6 @@ example = ReplyKeyboardMarkup(
         ],
     ],
     resize_keyboard=True,
-    one_time_keyboard=True,
 )
 
 circle = ReplyKeyboardMarkup(
@@ -18,5 +17,4 @@ circle = ReplyKeyboardMarkup(
         ],
     ],
     resize_keyboard=True,
-    one_time_keyboard=True,
 )

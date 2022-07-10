@@ -20,7 +20,6 @@ yes_no_menu = ReplyKeyboardMarkup(
         ],
     ],
     resize_keyboard=True,
-    one_time_keyboard=True,
 )
 
 yes_no_dot_menu = ReplyKeyboardMarkup(
@@ -31,7 +30,6 @@ yes_no_dot_menu = ReplyKeyboardMarkup(
         ],
     ],
     resize_keyboard=True,
-    one_time_keyboard=True,
 )
 
 too_thx = ReplyKeyboardMarkup(
@@ -41,5 +39,14 @@ too_thx = ReplyKeyboardMarkup(
         ],
     ],
     resize_keyboard=True,
-    one_time_keyboard=True,
 )
+
+go_mo = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Привітик, Мо."),
+        ],
+    ],
+    resize_keyboard=True,
+)
+

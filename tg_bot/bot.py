@@ -1,5 +1,6 @@
-import asyncio
 import logging
+
+from aiogram.utils import executor
 
 #from tg_bot.handlers.admin import register_admin
 from create_bot import dp, bot
@@ -12,6 +13,8 @@ from handlers.day_analyze_handler import register_day_analyze
 from handlers.last_handlers import register_last
 from filters import AdminFilter
 from filters.auth import Register
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -33,7 +36,8 @@ def register_all_handlers(dp):
     register_day_analyze(dp)
     register_last(dp)
 
-async def main():
+
+def main():
     logging.basicConfig(
         level=logging.INFO,
         format=u"%(filename)s:%(lineno)d #%(levelname)-8s [%(asctime)s] - %(name)s - %(message)s",
@@ -44,19 +48,13 @@ async def main():
     register_all_handlers(dp)
     if sql_start():
         logger.info("Database is ok")
-
-    try:
-        await dp.start_polling()
-    finally:
-        await dp.storage.close()
-        await dp.storage.wait_closed()
-        await bot.session.close()
+    executor.start_polling(dp, skip_updates=True)
 
 
 
 if __name__ == "__main__":
     try:
-        asyncio.run(main())
+        main()
     except (KeyboardInterrupt, SystemExit):
         logger.error("Bot Stopped")
 

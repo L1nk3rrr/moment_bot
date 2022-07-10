@@ -8,11 +8,13 @@ def sql_start():
     base.commit()
     return True
 
+
 async def new_user(tg_id, name):
     with sq.connect("moment.db") as base_1:
         cr_1 = base_1.cursor()
         cr_1.execute("INSERT INTO moment_users VALUES (?, ?)", (tg_id, name))
         base_1.commit()
+
 
 async def get_user_name(tg_id):
     with sq.connect("moment.db") as base_1:
